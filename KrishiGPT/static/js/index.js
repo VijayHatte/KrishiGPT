@@ -8,7 +8,7 @@ $(function() {
 
     function appendMessage(message, isUser) {
         var messageClass = isUser ? 'user-message' : 'bot-message';
-        var logoHTML = isUser ? '' : '<div class="bot-logo"><img src="../static/robo.png" alt="AgriGenius Logo"></div>';
+        var logoHTML = isUser ? '' : '<div class="bot-logo"><img src="../static/robo.png" alt="KrishiGPT Logo"></div>';
         var userImageHTML = isUser ? '<div class="user-image"><img src="../static/user.png" alt="User"></div>' : '';
         var messageElement = $('<div class="message-container ' + (isUser ? 'user-container' : 'bot-container') + '">' + 
                             logoHTML + 
@@ -117,7 +117,7 @@ $(function() {
         }
     }
 
-    var welcomeMessage = "🌱🌾 Welcome to AgriGenius !! 🌾🌱 Hi there! I'm AgriGenius, your virtual assistant for Agriculture. How can I assist you today?";
+    var welcomeMessage = "🌱🌾 Welcome to KrishiGPT !! 🌾🌱 Hi there! I'm KrishiGPT, your virtual assistant for Agriculture. How can I assist you today?";
 
     $('#chatbot-form-btn-clear').click(function(e) {
         e.preventDefault();

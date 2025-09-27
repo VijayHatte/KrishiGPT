@@ -16,7 +16,7 @@ def setup_retrieval_qa(db):
     retriever = db.as_retriever(similarity_score_threshold=0.6)
 
     # Define the prompt template
-    prompt_template = """ Your name is AgriGenius, Please answer questions related to Agriculture. Try explaining in simple words. Answer in less than 100 words. If you don't know the answer, simply respond with 'Don't know.'
+    prompt_template = """ Your name is KrishiGPT, Please answer questions related to Agriculture. Try explaining in simple words. Answer in less than 100 words. If you don't know the answer, simply respond with 'Don't know.'
      CONTEXT: {context}
      QUESTION: {question}"""
 

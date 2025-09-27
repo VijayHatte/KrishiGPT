@@ -1,7 +1,7 @@
-# AgriGenius: AI-Powered Agriculture Chatbot
+# KrishiGPT: AI-Powered Agriculture Chatbot
 
 ## Project Overview
-AgriGenius: AI-Powered Agriculture Chatbot is a Python web application designed to empower farmers with information accessibility. AgriGenius leverages a Retrieval-Augmented Generation model to address farmer's agricultural queries. The RAG model retrieves the most relevant information from a comprehensive repository of agricultural websites and PDF documents and utilizes that information to generate informative and comprehensive responses tailored to each user's specific question with precise answers.
+KrishiGPT: AI-Powered Agriculture Chatbot is a Python web application designed to empower farmers with information accessibility. KrishiGPT leverages a Retrieval-Augmented Generation model to address farmer's agricultural queries. The RAG model retrieves the most relevant information from a comprehensive repository of agricultural websites and PDF documents and utilizes that information to generate informative and comprehensive responses tailored to each user's specific question with precise answers.
 
 ## Features
 
@@ -27,8 +27,8 @@ To do so:-
 ----
 `STEP 2` - Cloning the Repository :
 ```
-    git clone https://github.com/jayeshbhandarkar/AgriGenius.git
-    cd AgriGenius
+    git clone https://github.com/jayeshbhandarkar/KrishiGPT.git
+    cd KrishiGPT
 ```
 ----
 `STEP 3` - Installing all the Dependancies :
@@ -50,7 +50,7 @@ To do so:-
 ---
 
 ## Screenshot
-- ### AgriGenius ChatBot Interface
+- ### KrishiGPT ChatBot Interface
 ![Main Interface](static/interface.png)
 
 ## Additional Notes
