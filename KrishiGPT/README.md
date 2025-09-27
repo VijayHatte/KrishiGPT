@@ -63,7 +63,7 @@ To do so:-
 
 ## Screenshot
 - ### KrishiGPT ChatBot Interface
-![Main Interface](static/interface.png)
+![KrishiGPT Interface](KrishiGPT.png)
 
 ## Additional Notes
 
