@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+env/
+venv/
+
+# Generated model artifacts & metrics
+artifacts/
+
+# Datasets (bring your own, e.g. PlantVillage)
+data/crop_dataset/
+
+# FAISS / model caches
+*.faiss

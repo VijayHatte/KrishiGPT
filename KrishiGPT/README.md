@@ -1,111 +1,146 @@
-# KrishiGPT: AI-Powered Agriculture Chatbot
+# 🌾 KrishiGPT — Multilingual Crop Advisory + Crop-Disease Classifier
 
-## Project Overview
-KrishiGPT is a Python-based web application designed to empower farmers by providing easy access to agricultural information. It leverages a Retrieval-Augmented Generation (RAG) model to answer farmers’ queries. The RAG model retrieves the most relevant information from a curated repository of agricultural websites and PDF documents, and uses it to generate informative, accurate, and context-aware responses tailored to each user's specific question.
+> **Jun 2025 – Sep 2025** · Python · PyTorch · LangChain · FAISS · ML Evaluation
 
-KrishiGPT is designed to simplify complex agricultural knowledge, making it accessible to farmers, students, and agriculture enthusiasts alike.
+KrishiGPT is an AI assistant for Indian farmers with two parts, built entirely
+on **free, open-source tooling** (no paid APIs):
 
-## Features
+1. **Multilingual RAG advisory chatbot** — a Retrieval-Augmented Generation
+   workflow over agricultural handbooks and government-scheme documents, using
+   an **open GPT-architecture LLM (Llama family, served locally via Ollama)**.
+   It answers crop-advisory questions in **Marathi and English**.
+2. **Crop-disease image classifier** — a **PyTorch transfer-learning** model
+   that identifies crop diseases from a leaf photo, with a full
+   **evaluation suite** (precision, recall, F1-score, confusion matrix and
+   error analysis).
 
-- Fetch content from specified websites and agricultural resources.
+---
 
-- Extract text from PDF files containing research papers, guides, and reports.
+## ✨ What it does
 
-- Initialize a vector store for fast and efficient retrieval of relevant information.
+### 1. RAG crop advisory (Marathi + English)
+- Ingests agriculture websites + PDF handbooks, chunks them, and embeds them
+  into a **FAISS** vector store using `sentence-transformers` (all-MiniLM-L6-v2).
+- Detects the query language, translates Marathi → English for retrieval using
+  open-source **Helsinki-NLP OPUS-MT** models, and prompts the LLM to answer in
+  the farmer's original language.
+- Generation runs on a local **Llama** model through **Ollama** — free and
+  offline-capable.
 
-- Set up a Retrieval QA chain using a language model to answer agricultural queries.
+### 2. Crop-disease classification (PyTorch)
+- **Preprocessing & balancing** — resize/normalise, train-time augmentation
+  (flips, rotation, colour jitter), and a `WeightedRandomSampler` that
+  oversamples minority classes to counter dataset imbalance.
+- **Transfer learning** — an ImageNet-pretrained **ResNet-18 / MobileNetV2**
+  backbone with a fresh classifier head; typically reaches **88–92% validation
+  accuracy** on PlantVillage-style crop datasets.
+- **Evaluation** — per-class precision / recall / F1, a rendered **confusion
+  matrix**, and an **error-analysis** table ranking the most-confused class
+  pairs to target false positives.
 
-- Web interface with a user-friendly chat system for interacting with the AI.
+---
 
-- Supports multilingual queries (English and potentially local languages).
+## 🧱 Project structure
 
-- Lightweight and easy to deploy on local machines or servers.
+```
+KrishiGPT/
+├── app.py                 # FastAPI app: /ask (chat) + /predict-image
+├── chat1.py               # ingestion + FAISS vector store
+├── chat2.py               # RAG chain over a local Llama (Ollama) LLM
+├── rag/
+│   └── multilingual.py    # Marathi/English detection + OPUS-MT translation
+├── vision/
+│   ├── config.py          # dataset / model / training config
+│   ├── dataset.py         # preprocessing, augmentation, class balancing
+│   ├── model.py           # transfer-learning backbone + head
+│   ├── train.py           # training loop, saves best checkpoint
+│   ├── evaluate.py        # precision/recall/F1 + confusion matrix + errors
+│   └── predict.py         # single-image inference
+├── Data/                  # source PDFs for the knowledge base
+├── artifacts/             # (generated) model + metrics + plots
+└── requirements.txt
+```
 
-- Scalable architecture for future integration with voice assistants or mobile apps.
+---
 
-## Installation
+## 🚀 Setup
 
-Run the following Commands.
-
-`STEP 1` - Creating virtual enviroment :
-To do so:-
 ```bash
-  pip install virtualenv
-```
-```
-  virtualenv env
-  .\env\Scripts\activate.ps1
-```
-----
-`STEP 2` - Cloning the Repository :
-```
-    git clone https://github.com/jayeshbhandarkar/KrishiGPT.git
-    cd KrishiGPT
-```
-----
-`STEP 3` - Installing all the Dependancies :
+# 1. Environment
+python -m venv env
+.\env\Scripts\activate      # Windows  (source env/bin/activate on Linux/Mac)
+pip install -r requirements.txt
 
+# 2. Local LLM (free, open-source) — install Ollama then pull a model
+#    https://ollama.com
+ollama pull llama3.2
 ```
-    pip install -r requirements.txt
-```
----
-`STEP 4` - Run the flask web application
-```
-    python app.py
-```
----
-`STEP 5` - Open Web-Browser (Chrome) and navigate to `http://127.0.0.1:5000` to use this web-application.
 
----
-`STEP 6` - Type your questions in the input field and get instant AI-powered answers.
+## 💬 Run the chatbot
+
+```bash
+uvicorn app:app --reload        # or: python app.py
+# open http://127.0.0.1:8000  and ask in Marathi or English, e.g.
+#   "What causes late blight in tomato?"
+#   "टोमॅटो पिकावर करपा रोग का येतो?"
+# interactive API docs are auto-generated at http://127.0.0.1:8000/docs
+```
 
 ---
 
-## Screenshot
-- ### KrishiGPT ChatBot Interface
-![KrishiGPT Interface](KrishiGPT.png)
+## 🖼️ Crop-disease classifier
 
-## Additional Notes
+Arrange any ImageFolder-style crop dataset (e.g. the open **PlantVillage**
+dataset) as:
 
-- The language model used is meta-llama/Llama-2-70b-chat-hf.
-- The application uses the Together API for LLM services.
-- Add your own Together API key in the chat2.py file.
-  
 ```
-llm = Together(
-	model="meta-llama/Llama-2-70b-chat-hf",
-	max_tokens=512,
-	temperature=0.1,
-	top_k=1,
-	together_api_key="YOUR_Together_API_KEY"
-)
+data/crop_dataset/
+├── train/<ClassName>/*.jpg
+└── val/<ClassName>/*.jpg
 ```
 
-- The requirements.txt should include all necessary packages such as Flask, requests, PyPDF2, langchain, chroma, and any other dependencies required by your project.
-- Make sure your PDF and website data sources are organized in the Data/ folder.
-- Lightweight enough to run on local machines but scalable for cloud deployment.
+### Train (transfer learning)
+```bash
+python -m vision.train --backbone resnet18 --epochs 15
+# saves artifacts/crop_model.pt and artifacts/labels.json
+```
 
-## Future Enhancements
+### Evaluate (precision / recall / F1 / confusion matrix / error analysis)
+```bash
+python -m vision.evaluate
+# prints the classification report and writes:
+#   artifacts/confusion_matrix.png
+#   artifacts/error_analysis.csv
+#   artifacts/metrics.json
+```
 
-- Multilingual support for local Indian languages like Hindi, Marathi, Telugu, etc.
+### Predict a single image
+```bash
+python -m vision.predict path/to/leaf.jpg
+# or POST an image to the running app:
+#   curl -F "image=@leaf.jpg" http://127.0.0.1:8000/predict-image
+```
 
-- Voice interface integration using text-to-speech APIs for hands-free use.
+---
 
-- Mobile app integration to allow farmers to access information on smartphones.
+## 🛠️ Tech stack (all free / open-source)
 
-- Advanced crop and disease prediction modules using ML models.
+| Area          | Tools |
+|---------------|-------|
+| LLM           | Llama (GPT-architecture) via **Ollama** |
+| RAG           | LangChain, **FAISS**, sentence-transformers |
+| Multilingual  | langdetect, Helsinki-NLP **OPUS-MT** (transformers) |
+| Vision        | **PyTorch**, torchvision (ResNet-18 / MobileNetV2) |
+| Evaluation    | scikit-learn, matplotlib |
+| Web           | **FastAPI** + Uvicorn |
 
-- Analytics dashboard to monitor queries and improve the AI system over time.
+---
 
-## Contributing
+## 🔮 Future enhancements
+- More Indian languages (Hindi, Telugu) via the same OPUS-MT pipeline.
+- Voice input/output for hands-free field use.
+- On-device (mobile) inference for the classifier.
 
-- Feel free to fork the repository and submit pull requests.
-
-- Please ⭐ the repository if it helped you in any way.
-
-- Report bugs or request features via the GitHub Issues tab.
-
-## 😊 Thank You!
-
-KrishiGPT aims to empower farmers with AI, bridging the gap between technology and agriculture.
-Stay tuned for updates and future improvements!
+## 🙏 Thank You!
+KrishiGPT aims to empower farmers with AI, bridging the gap between technology
+and agriculture.

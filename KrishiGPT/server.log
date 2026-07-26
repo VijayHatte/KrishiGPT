@@ -1,0 +1,27 @@
+C:\Users\vhatte\Documents\College Projects\KrishiGPT\KrishiGPT\KrishiGPT\chat2.py:30: LangChainDeprecationWarning: The class `Ollama` was deprecated in LangChain 0.3.1 and will be removed in 1.0.0. An updated version of the class exists in the `langchain-ollama package and should be used instead. To use it run `pip install -U `langchain-ollama` and import as `from `langchain_ollama import OllamaLLM``.
+  llm = Ollama(
+C:\Users\vhatte\Documents\College Projects\KrishiGPT\KrishiGPT\KrishiGPT\chat1.py:52: LangChainDeprecationWarning: The class `HuggingFaceEmbeddings` was deprecated in LangChain 0.2.2 and will be removed in 1.0. An updated version of the class exists in the `langchain-huggingface package and should be used instead. To use it run `pip install -U `langchain-huggingface` and import as `from `langchain_huggingface import HuggingFaceEmbeddings``.
+  embedding_function = SentenceTransformerEmbeddings(
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[KrishiGPT] Building vector store from 3 source(s)...
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 12656.39it/s]
+INFO:     Started server process [10832]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8010 (Press CTRL+C to quit)
+C:\Users\vhatte\Documents\College Projects\KrishiGPT\KrishiGPT\KrishiGPT\app.py:76: LangChainDeprecationWarning: The method `Chain.__call__` was deprecated in langchain-classic 0.1.0 and will be removed in 2.0.0. Use `invoke` instead.
+  response = chain({"query": english_query})
+[KrishiGPT] Knowledge base ready.
+INFO:     127.0.0.1:64041 - "POST /ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64061 - "POST /ask HTTP/1.1" 200 OK
+C:\kv\env\Lib\site-packages\huggingface_hub\file_download.py:139: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in C:\Users\vhatte\.cache\huggingface\hub\models--Helsinki-NLP--opus-mt-mr-en. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+INFO:     127.0.0.1:64071 - "POST /ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63044 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63044 - "GET /static/css/style.css HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:50669 - "GET /static/js/index.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57882 - "GET /static/logo.png HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57882 - "GET /static/robo.png HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:65065 - "POST /ask HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50564 - "GET /static/user.png HTTP/1.1" 304 Not Modified

@@ -9,14 +9,14 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
     <div class="chat-container">
         <div class="chat-header">
             <div class="logo-title">
                 <div class="logo-circle">
-                  <img src="{{ url_for('static', filename='logo.png') }}" alt="KrishiGPT Logo" class="logo-image">
+                  <img src="/static/logo.png" alt="KrishiGPT Logo" class="logo-image">
                 </div>
                 <h1>KrishiGPT</h1>
             </div>
@@ -44,6 +44,6 @@
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    <script src="/static/js/index.js"></script>
 </body>
 </html>
